@@ -14,14 +14,16 @@ import com.feicui.zh.splash.pager.Pager2;
  */
 public class SplashPagerAdapter extends PagerAdapter {
     private final View[] views;
-
     public SplashPagerAdapter(Context context) {
-
         views = new View[]{
                 new Pager0(context),
                 new Pager1(context),
                 new Pager2(context)
         };
+    }
+
+    public View getViews(int position) {
+        return views[position];
     }
 
     @Override

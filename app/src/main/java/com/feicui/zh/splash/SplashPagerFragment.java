@@ -12,26 +12,30 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.feicui.zh.R;
+import com.feicui.zh.splash.pager.Pager2;
 
+import butterknife.BindColor;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.relex.circleindicator.CircleIndicator;
 
 /**
  * Created by Administrator on 2016/7/26.
  */
 public class SplashPagerFragment extends Fragment {
-    ViewPager viewPager;
-    SplashPagerAdapter adapter;
-    /**指示器圆点*/
-    CircleIndicator circleIndicator;
-    /**颜色*/
-    private FrameLayout frameLayout;//当前页面Layout(主要为了更新其背景颜色)
-    private int colorGreen;
-    private int colorRed;
-    private int coloryellow;
-    /**手机*/
-    private FrameLayout phonelayout;// 屏幕中央的"手机"
-    private ImageView phonefont;//手机中的字体
 
+    @BindView(R.id.viewPager) ViewPager viewPager;
+    /**指示器圆点*/
+    @BindView(R.id.indicator) CircleIndicator circleIndicator;
+    /**颜色*/
+    @BindView(R.id.content) FrameLayout frameLayout;//当前页面Layout(主要为了更新其背景颜色)
+    @BindColor(R.color.colorGreen) int colorGreen;
+    @BindColor(R.color.colorRed) int colorRed;
+    @BindColor(R.color.colorYellow) int coloryellow;
+    /**手机*/
+    @BindView(R.id.layoutPhone) FrameLayout phonelayout;// 屏幕中央的"手机"
+    @BindView(R.id.ivPhoneFont) ImageView phonefont;//手机中的字体
+    SplashPagerAdapter adapter;
 
     @Nullable
     @Override
@@ -42,16 +46,7 @@ public class SplashPagerFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        circleIndicator = (CircleIndicator) view.findViewById(R.id.indicator);
-        /**颜色初始化*/
-        colorGreen = getResources().getColor(R.color.colorGreen);
-        colorRed = getResources().getColor(R.color.colorRed);
-        coloryellow = getResources().getColor(R.color.colorYellow);
-        frameLayout = (FrameLayout) view.findViewById(R.id.content);
-        /**手机初始化*/
-        phonelayout = (FrameLayout) view.findViewById(R.id.layoutPhone);
-        phonefont = (ImageView) view.findViewById(R.id.ivPhoneFont);
+        ButterKnife.bind(this,view);
 
         adapter = new SplashPagerAdapter(getContext());
         viewPager.setAdapter(adapter);
@@ -111,12 +106,14 @@ public class SplashPagerFragment extends Fragment {
                 phonelayout.setTranslationX(-positionOffsetPixels);
             }
         }
-
+        /**当显示出最后一个pager时，播放条目动画*/
         @Override
         public void onPageSelected(int position) {
-
+            if (position==2){
+                Pager2 pager2 = (Pager2) adapter.getViews(position);
+                pager2.showAnimation();
+            }
         }
-
         @Override
         public void onPageScrollStateChanged(int state) {
 

@@ -16,6 +16,7 @@
         android:layout_height="match_parent"/>
     <!--侧滑菜单视图,NavigationView-->
     <android.support.design.widget.NavigationView
+        android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/navigationView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

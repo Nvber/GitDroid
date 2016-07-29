@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 
 /**
  * Created by Administrator on 2016/7/27.
+ * 主界面
  */
 public class HotFragment extends Fragment {
 
@@ -36,6 +37,7 @@ public class HotFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        /**viewPager、tabLayout添加适配器数据*/
         adapter = new HotAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);

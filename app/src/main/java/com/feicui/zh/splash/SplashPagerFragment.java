@@ -71,7 +71,6 @@ public class SplashPagerFragment extends Fragment {
                 int color = (int) argbEvaluator.evaluate(positionOffset,colorRed,coloryellow);
                 frameLayout.setBackgroundColor(color);
             }
-
         }
 
         @Override

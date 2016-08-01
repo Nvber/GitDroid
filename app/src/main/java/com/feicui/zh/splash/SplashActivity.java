@@ -8,6 +8,7 @@ import android.widget.Button;
 import com.feicui.zh.R;
 import com.feicui.zh.activity.MainActivity;
 import com.feicui.zh.common.ActivityUtils;
+import com.feicui.zh.login.LoginActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +40,7 @@ public class SplashActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnLogin)
     public void login(){
+        activityUtils.startActivity(LoginActivity.class);
 
     }
 }

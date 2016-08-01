@@ -10,10 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.feicui.zh.R;
+import com.feicui.zh.common.ActivityUtils;
 import com.feicui.zh.fagment.HotFragment;
+import com.feicui.zh.login.LoginActivity;
+import com.feicui.zh.login.UserRepo;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
     ActionBarDrawerToggle drawerToggle;
     HotFragment hotFragment;
+    private Button btnLogin;
+    private ImageView ivIcon;
+
+    private ActivityUtils activityUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +55,31 @@ public class MainActivity extends AppCompatActivity {
         /**同步*/
         drawerToggle.syncState();
 
+        btnLogin = ButterKnife.findById(navigationView.getHeaderView(0), R.id.btnLogin);
+        ivIcon = ButterKnife.findById(navigationView.getHeaderView(0), R.id.ivIcon);
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                activityUtils.startActivity(LoginActivity.class);
+                finish();
+            }
+        });
         hotFragment = new HotFragment();
         replaceFragment(hotFragment);
+    }
+
+    @Override protected void onStart() {
+        super.onStart();
+        // 没有授权的话
+        if (UserRepo.isEmpty()) {
+            btnLogin.setText(R.string.login_github);
+            return;
+        }
+        btnLogin.setText(R.string.switch_account);
+        // 设置Title
+        getSupportActionBar().setTitle(UserRepo.getUser().getName());
+        // 设置用户头像
+        String photoUrl = UserRepo.getUser().getAvatar();
+        ImageLoader.getInstance().displayImage(photoUrl, ivIcon);
     }
     /**碎片替换*/
     private void replaceFragment(Fragment fragment) {

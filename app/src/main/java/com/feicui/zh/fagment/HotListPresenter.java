@@ -31,7 +31,7 @@ public class HotListPresenter {
     }
     /**刷新*/
     public void refresh(){
-        new RefreshTask().execute();
+//        new RefreshTask().execute();
 
 //        GitHubClient gitHubClient = new GitHubClient();
 //        GitHubApi gitHubApi = gitHubClient.getGitHubApi();
